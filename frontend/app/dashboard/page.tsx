@@ -1,5 +1,9 @@
-export default function Page() {
-    return (
-        <div className="text-red-500 text-xl">this is dashboard</div>
-    );
+export default function DashboardPage() {
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <h1 className="text-2xl font-bold text-gray-700">
+        Welcome to Dashboard
+      </h1>
+    </div>
+  );
 }
