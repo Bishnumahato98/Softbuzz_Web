@@ -11,7 +11,7 @@ export default function ForgotPasswordPage() {
         </div>
 
         <div className="p-10">
-          <h2 className="text-2xl font-semibold mb-6 text-center text-black py-2 rounded">
+          <h2 className="text-2xl font-semibold mb-6 text-center text-gray-800">
             Forgot Password
           </h2>
 
