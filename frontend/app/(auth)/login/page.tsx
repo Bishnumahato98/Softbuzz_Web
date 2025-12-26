@@ -1,36 +1,65 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+
 export default function LoginPage() {
+  const router = useRouter();
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-6 rounded shadow w-80">
-        <h2 className="text-xl font-semibold mb-4 text-center">Login</h2>
+      <div className="w-[800px] grid grid-cols-2 rounded-xl overflow-hidden shadow-lg">
 
-        <input
-          type="email"
-          placeholder="Email"
-          className="w-full p-2 border rounded mb-3"
-        />
-
-        <input
-          type="password"
-          placeholder="Password"
-          className="w-full p-2 border rounded mb-3"
-        />
-
-        <button className="w-full bg-blue-600 text-white p-2 rounded">
-          Login
-        </button>
-
-        <div className="text-sm text-center mt-3">
-          <a href="/forgot-password" className="text-blue-500">
-            Forgot Password?
-          </a>
+        {/* LEFT SIDE */}
+        <div className="bg-green-600 text-white p-10 flex flex-col justify-center">
+          <h1 className="text-3xl font-bold mb-4">Softbuzz</h1>
+          <p className="text-lg opacity-90">
+            Your daily source for cricket updates, scores and news.
+          </p>
         </div>
 
-        <div className="text-sm text-center mt-2">
-          Don’t have an account?{" "}
-          <a href="/signup" className="text-blue-500">
-            Sign up
-          </a>
+        {/* RIGHT SIDE */}
+        <div className="bg-[#ffffff] p-10 flex flex-col justify-center">
+          
+          {/* Title */}
+          <h2 className="text-2xl font-semibold mb-6 text-center text-black py-2 rounded">
+            Login
+          </h2>
+
+          {/* Email */}
+          <input
+            type="email"
+            placeholder="Email"
+            className="w-full p-3 mb-4 bg-transparent text-black border border-gray-600 rounded 
+            focus:outline-none focus:border-green-600 focus:rounded-xl 
+            placeholder-gray-400 transition-all duration-200"
+          />
+
+          {/* Password */}
+          <input
+            type="password"
+            placeholder="Password"
+            className="w-full p-3 mb-4 bg-transparent text-black border border-gray-600 rounded 
+            focus:outline-none focus:border-green-600 focus:rounded-xl 
+            placeholder-gray-400 transition-all duration-200"
+          />
+
+          {/* Button */}
+          <button
+            onClick={() => router.push("/dashboard")}
+            className="w-full bg-green-600 text-white py-3 rounded font-semibold hover:bg-green-700 transition"
+          >
+            Login
+          </button>
+
+          {/* Links */}
+          <div className="flex justify-between mt-4 text-sm">
+            <a href="/forgot-password" className="text-green-500">
+              Forgot password?
+            </a>
+            <a href="/signup" className="text-green-500 font-medium">
+              Sign up
+            </a>
+          </div>
         </div>
       </div>
     </div>
