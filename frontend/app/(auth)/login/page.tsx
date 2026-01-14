@@ -178,10 +178,10 @@ export default function LoginPage() {
             <a href="/forgot-password" className="text-green-500">
               Forgot password?
             </a>
-            <a href="/signup" className="text-green-500 font-medium">
+            <a href="/register" className="text-green-500 font-medium">
               Sign up
             </a>
-          </div>
+          </div>c
         </div>
       </div>
     </div>
