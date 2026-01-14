@@ -1,109 +1,129 @@
-
 "use client";
 
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import z from "zod";
+import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { handleLogin } from "@/lib/actions/auth-action";
 
-export default function LoginPage() {
+/* ================= SCHEMA ================= */
+export const loginSchema = z.object({
+  email: z.string().email("Invalid email"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+});
+
+export type LoginForm = z.infer<typeof loginSchema>;
+
+export default function Page() {
   const router = useRouter();
+  const [pending, startTransition] = useTransition();
+  const [error, setError] = useState("");
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginForm>({
+    resolver: zodResolver(loginSchema),
+  });
 
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
+  const onSubmit = async (data: LoginForm) => {
+    setError("");
+    try {
+      const res = await handleLogin(data);
 
-  const handleLogin = () => {
-    let isValid = true;
+      if (!res?.success) {
+        throw new Error(res.message || "Login failed");
+      }
 
-    // Reset errors
-    setEmailError("");
-    setPasswordError("");
-
-    // Email validation
-    if (!email) {
-      setEmailError("Please enter your email");
-      isValid = false;
+      // ✅ redirect after MongoDB validation
+      startTransition(() => {
+        router.push("/dashboard");
+      });
+    } catch (err: any) {
+      setError(err.message || "Login failed");
     }
-
-    // Password validation
-    if (!password) {
-      setPasswordError("Please enter your password");
-      isValid = false;
-    }
-
-    // Stop if validation fails
-    if (!isValid) return;
-
-    // Redirect
-    router.push("/dashboard");
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="w-[800px] grid grid-cols-2 rounded-xl overflow-hidden shadow-lg">
+      <div className="w-[900px] bg-white rounded-xl shadow-lg grid grid-cols-2 overflow-hidden">
 
-        {/* LEFT SIDE */}
+        {/* LEFT PANEL */}
         <div className="bg-green-600 text-white p-10 flex flex-col justify-center">
           <h1 className="text-3xl font-bold mb-4">Softbuzz</h1>
-          <p className="text-lg opacity-90">
+          <p className="text-green-100 text-lg">
             Your daily source for cricket updates, scores and news.
           </p>
         </div>
 
-        {/* RIGHT SIDE */}
-        <div className="bg-white p-10 flex flex-col justify-center">
-
-          <h2 className="text-2xl font-semibold mb-6 text-center text-black">
+        {/* RIGHT PANEL */}
+        <div className="p-10">
+          <h2 className="text-2xl font-semibold mb-6 text-center">
             Login
           </h2>
 
-          {/* Email */}
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-3 mb-1 bg-transparent text-black border border-gray-600 rounded 
-            focus:outline-none focus:border-green-600 focus:rounded-xl 
-            placeholder-gray-400 transition-all duration-200"
-          />
-
-          {emailError && (
-            <p className="text-red-500 text-sm mb-3">{emailError}</p>
+          {error && (
+            <p className="text-red-500 text-sm text-center mb-4">
+              {error}
+            </p>
           )}
 
-          {/* Password */}
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-3 mb-1 bg-transparent text-black border border-gray-600 rounded 
-            focus:outline-none focus:border-green-600 focus:rounded-xl 
-            placeholder-gray-400 transition-all duration-200"
-          />
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 
-          {passwordError && (
-            <p className="text-red-500 text-sm mb-3">{passwordError}</p>
-          )}
+            {/* Email */}
+            <div>
+              <input
+                {...register("email")}
+                placeholder="Email"
+                className="w-full border p-3 rounded focus:outline-none focus:border-green-600"
+              />
+              {errors.email && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.email.message}
+                </p>
+              )}
+            </div>
 
-          {/* Button */}
-          <button
-            onClick={handleLogin}
-            className="w-full bg-green-600 text-white py-3 rounded font-semibold hover:bg-green-700 transition"
-          >
-            Login
-          </button>
+            {/* Password */}
+            <div>
+              <input
+                type="password"
+                {...register("password")}
+                placeholder="Password"
+                className="w-full border p-3 rounded focus:outline-none focus:border-green-600"
+              />
+              {errors.password && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.password.message}
+                </p>
+              )}
+            </div>
 
-          {/* Links */}
+            <button
+              type="submit"
+              disabled={isSubmitting || pending}
+              className="w-full bg-green-600 hover:bg-green-700 transition text-white p-3 rounded font-semibold disabled:opacity-50"
+            >
+              {isSubmitting ? "Logging in..." : "Login"}
+            </button>
+          </form>
+
           <div className="flex justify-between mt-4 text-sm">
-            <a href="/forgot-password" className="text-green-500">
+            <span
+              className="text-green-600 cursor-pointer"
+              onClick={() => router.push("/forgot-password")}
+            >
               Forgot password?
-            </a>
-            <a href="/register" className="text-green-500 font-medium">
+            </span>
+
+            <span
+              className="text-green-600 cursor-pointer"
+              onClick={() => router.push("/register")}
+            >
               Sign up
-            </a>
+            </span>
           </div>
         </div>
       </div>

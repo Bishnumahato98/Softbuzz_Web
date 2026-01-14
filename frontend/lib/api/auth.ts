@@ -13,3 +13,15 @@ export const register = async (registerData:any) =>{
             || "Registration failed"); //fallback message
     }
 }
+
+export const login = async (loginData:any) =>{
+    try {
+        const response = await axios.post(API.AUTH.LOGIN, loginData);
+        return response.data; //respone ko body(what backend return )
+    }catch(error: Error | any){
+        throw new Error(
+            error.response?.data?.message
+            || error.message  //general axios error message
+            || "login failed"); //fallback message
+    }
+}
