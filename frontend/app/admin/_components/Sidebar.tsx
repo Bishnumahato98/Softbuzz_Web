@@ -15,7 +15,7 @@ export default function Sidebar() {
 
     return (
         <>
-            {/* Sidebar */}
+            {/* Sir */}
             <aside className={`
                 fixed md:static 
                 top-0 left-0 
