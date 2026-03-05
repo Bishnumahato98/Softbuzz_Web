@@ -11,7 +11,7 @@ const CLIENT_URL = process.env.CLIENT_URL as string;
 
 export class UserService {
     async createUser(data: CreateUserDTO) {
-        // business logic before creating user
+        
         const emailCheck = await userRepository.getUserByEmail(data.email);
         if (emailCheck) {
             throw new HttpError(403, "Email already in use");
