@@ -42,7 +42,7 @@ export default function RegisterForm() {
                 setError(err.message || 'Registration failed');
             }
         });
-        // GO TO LOGIN PAGE
+       
         console.log("register", values);
     };
 
