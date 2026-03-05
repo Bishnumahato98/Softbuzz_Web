@@ -9,7 +9,7 @@ export class AdminUserController {
     async createUser(req: Request, res: Response, next: NextFunction) {
         try {
             const parsedData = CreateUserDTO.safeParse(req.body); // validate request body
-            if (!parsedData.success) { // validation failed
+            if (!parsedData.success) { 
                 return res.status(400).json(
                     { success: false, message: z.prettifyError(parsedData.error) }
                 )
