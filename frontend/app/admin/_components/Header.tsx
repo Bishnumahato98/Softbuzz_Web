@@ -9,7 +9,7 @@ export default function Header() {
         <header className="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-background/80 border-b border-black/10 dark:border-white/10">
             <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" aria-label="Global">
                 <div className="flex h-16 items-center justify-between">
-                    {/* Left: Logo & Title */}
+                    {/* Left: L */}
                     <div className="flex items-center gap-3">
                         <Link href="/admin" className="flex items-center gap-2 group">
                             <span className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-foreground text-background font-semibold">
