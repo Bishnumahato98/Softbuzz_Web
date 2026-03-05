@@ -16,7 +16,7 @@ export class AdminUserService {
             throw new HttpError(403, "Username already in use");
         }
        
-        const hashedPassword = await bcryptjs.hash(data.password, 10); // 10 - complexity
+        const hashedPassword = await bcryptjs.hash(data.password, 10); 
         data.password = hashedPassword;
 
         const newUser = await userRepository.createUser(data);
