@@ -15,12 +15,12 @@ const UserSchema: Schema = new Schema<UserType>(
         imageUrl: { type: String , required: false},
     },
     {
-        timestamps: true, // auto createdAt and updatedAt
+        timestamps: true, 
     }
 );
 
-export interface IUser extends UserType, Document { // combine UserType and Document
-    _id: mongoose.Types.ObjectId; // mongo related attribute/ custom attributes
+export interface IUser extends UserType, Document { 
+    _id: mongoose.Types.ObjectId; 
     createdAt: Date;
     updatedAt: Date;
 }
