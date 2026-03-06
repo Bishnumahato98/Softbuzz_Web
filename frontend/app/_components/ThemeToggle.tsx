@@ -44,7 +44,7 @@ export default function ThemeToggle() {
     >
       {/* Icon changes with theme label; simple shapes to avoid extra deps */}
       {theme === "dark" ? (
-        
+        // Moon
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
           <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79Z" />
         </svg>
