@@ -5,13 +5,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <section className="h-screen">
             <div className="h-full w-full grid md:grid-cols-2 md:gap-0">
 
-                <div className="relative hidden md:block h-full overflow-hidden">
-                    <Image
-                        src="/auth-illustration.svg"
-                        alt="Welcome illustration"
-                        fill
-                        priority
-                        className="object-cover"
+                <div className="hidden md:flex items-center justify-center bg-white">
+                    <img
+                        src="/images/cricket.jpg"
+                        alt="SmartNews Nepal"
+                        className="w-[420px]"
                     />
                 </div>
 
