@@ -11,7 +11,7 @@ const CLIENT_URL = process.env.CLIENT_URL as string;
 
 export class UserService {
     async createUser(data: CreateUserDTO) {
-        
+        // business logic before creating user
         const emailCheck = await userRepository.getUserByEmail(data.email);
         if (emailCheck) {
             throw new HttpError(403, "Email already in use");
@@ -21,7 +21,7 @@ export class UserService {
             throw new HttpError(403, "Username already in use");
         }
         // hash password
-        const hashedPassword = await bcryptjs.hash(data.password, 10); 
+        const hashedPassword = await bcryptjs.hash(data.password, 10); // 10 - complexity
         data.password = hashedPassword;
 
         // create user

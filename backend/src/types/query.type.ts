@@ -3,4 +3,3 @@ export interface QueryParams {
     size?: string;
     search?: string;
 }
-// query

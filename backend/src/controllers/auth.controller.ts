@@ -7,7 +7,7 @@ export class AuthController {
     async register(req: Request, res: Response) {
         try {
             const parsedData = CreateUserDTO.safeParse(req.body); // validate request body
-            if (!parsedData.success) { 
+            if (!parsedData.success) { // validation failed
                 return res.status(400).json(
                     { success: false, message: z.prettifyError(parsedData.error) }
                 )
